@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mvp.demo.activity.ImmerseActivity">
+
+    <RelativeLayout
+        android:id="@+id/re_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#FF00"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:text="春天到了"
+            android:gravity="center"
+            android:textSize="20dp"
+            />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_pz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        />
+    <Button
+        android:id="@+id/btn_xc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="相册"
+        />
+
+    <ImageView
+        android:id="@+id/img_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
