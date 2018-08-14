@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,38 +7,82 @@
     android:orientation="vertical"
     tools:context="com.mvp.demo.activity.ImmerseActivity">
 
-    <RelativeLayout
+
+    <com.mvp.demo.view.ObservableScrollView
+        android:id="@+id/sv_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_main_topContent"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:background="#b5b433"
+                android:gravity="center"
+                android:src="@mipmap/ic_launcher"
+                android:text="我是头部"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:background="#ffffff"
+                android:gravity="center"
+                android:src="@mipmap/ic_launcher"
+                android:text="我是内容"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+
+    </com.mvp.demo.view.ObservableScrollView>
+
+
+    <LinearLayout
         android:id="@+id/re_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:background="#FF00"
-        >
-        <TextView
+        android:orientation="vertical">
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:text="春天到了"
+            android:layout_height="40px" />
+
+        <TextView
+            android:id="@+id/mImageView"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
             android:gravity="center"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+            android:text="余盆" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_pz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="拍照"
-        />
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/btn_xc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="相册"
-        />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/img_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

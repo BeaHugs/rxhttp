@@ -1,11 +1,15 @@
 package com.mvp.demo.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 
 import com.mvp.demo.utils.Event;
 import com.mvp.demo.utils.EventBusUtils;
+import com.mvp.demo.utils.auto.AutoLayoutConifg;
+import com.mvp.demo.utils.auto.AutoUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,12 +22,17 @@ import de.greenrobot.event.EventBus;
  * Created by Administrator Wang  on 2018/3/9.
  */
 
-public abstract class BaseActivity<T,P> extends AppCompatActivity implements IBaseDataBack<T>{
+public abstract class BaseActivity<T,P> extends Activity implements IBaseDataBack<T>{
+    private ViewGroup view;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-        setContentView(initView());
+        //getSupportActionBar().hide();
+        AutoLayoutConifg.getInstance().init(this);
+        view = (ViewGroup) getLayoutInflater().inflate(initView(), null);
+        AutoUtils.initLayoutSize(view, this);
+
+        setContentView(view);
         if (isRegisterEventBus()){
             EventBusUtils.getDefault().register(this);
         }

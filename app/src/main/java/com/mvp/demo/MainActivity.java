@@ -82,10 +82,6 @@ public class MainActivity extends BaseActivity<LoginBean, LogonPresenter> implem
         btn_select = findViewById(R.id.btn_select);
 
 
-        DemoFragment demoFragment = new DemoFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.frame, demoFragment).commit();
-
 
         DecimalFormat myformat = new DecimalFormat();
         myformat.applyPattern("##,###.00");
