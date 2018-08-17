@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
-                android:background="#ffffff"
+                android:background="#f00"
                 android:gravity="center"
                 android:src="@mipmap/ic_launcher"
                 android:text="我是内容"
@@ -50,7 +50,7 @@
         android:id="@+id/re_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF00"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <View
@@ -62,7 +62,9 @@
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:gravity="center"
-            android:text="余盆" />
+            android:text="余盆"
+            android:visibility="invisible"
+            />
     </LinearLayout>
 
     <Button

@@ -40,14 +40,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.NoActionBar">
-
         <meta-data
             android:name="design_width"
             android:value="768" />
         <meta-data
             android:name="design_height"
             android:value="1280" />
-
 
         <!-- 配置APP ID -->
         <meta-data
@@ -164,28 +162,24 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".activity.ImmerseActivity"
-            android:theme="@style/Theme"
-            >
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".activity.ImmerseActivity"
+            android:theme="@style/Theme">
+
+        </activity>
+        <activity
+            android:name=".activity.WinActivity"
+            android:theme="@style/CalcPopDiaglog.Light" />
+        <activity android:name=".DemoActivity"></activity>
+        <activity android:name=".activity.Demo2Activity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity
-            android:name=".activity.WinActivity"
-            android:theme="@style/CalcPopDiaglog.Light"></activity>
-        <activity android:name=".DemoActivity">
-
-        </activity>
-        <activity android:name=".activity.Demo2Activity" />
-        <activity android:name=".utils.Main2Activity"></activity>
-        <activity android:name=".activity.AnnotationsTextActivity">
-
-        </activity>
+        <activity android:name=".activity.AnnotationsTextActivity"></activity>
     </application>
 
 </manifest>

@@ -40,13 +40,14 @@ import com.mvp.demo.view.ObservableScrollView;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
+/**
+ * https://blog.csdn.net/hmmhhmmhmhhm/article/details/77840604 状态栏博客
+ */
 public class ImmerseActivity extends BaseActivity implements View.OnClickListener, ObservableScrollView.OnObservableScrollViewListener {
 
     private Button btn_pz;
@@ -58,10 +59,7 @@ public class ImmerseActivity extends BaseActivity implements View.OnClickListene
     private TextView mImageView;
     private LinearLayout mHeaderContent;
 
-
-
     private int mHeight;
-    private ListView lv;
 
     @Override
     protected int initView() {
@@ -78,8 +76,9 @@ public class ImmerseActivity extends BaseActivity implements View.OnClickListene
         btn_xc.setOnClickListener(this);
         //初始化控件
         mObservableScrollView = (ObservableScrollView) findViewById(R.id.sv_main_content);
-        mImageView = (TextView) findViewById(R.id.mImageView);
+        mImageView = (TextView) findViewById(R.id.tv_main_topContent);
         mHeaderContent = (LinearLayout) findViewById(R.id.re_layout);
+        mHeaderContent.getBackground().mutate().setAlpha(0);
         //获取标题栏高度
         ViewTreeObserver viewTreeObserver = mImageView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -191,19 +190,26 @@ public class ImmerseActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onObservableScrollViewListener(int l, int t, int oldl, int oldt) {
-        Log.i("xxx",t+"---");
-        if (t <= 0) { //顶部图处于最顶部，标题栏透明
-            //mHeaderContent.setVisibility(View.GONE);
-            mHeaderContent.setBackgroundColor(Color.RED);
-        } else if (t > 0 && t < mHeight) { //滑动过程中，渐变
+
+        if (t <= 0) {
+            //状态栏浅颜色
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            //顶部图处于最顶部，标题栏透明
+            mHeaderContent.setBackgroundColor(Color.argb(0, 255, 255, 255));
+        } else if (t > 0 && t < mHeight) {
+            //状态栏深颜色
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            //滑动过程中，渐变
             float scale = (float) t / mHeight;
             //算出滑动距离比例
             float alpha = (255 * scale);
             //得到透明度
-            mHeaderContent.setBackgroundColor(Color.argb((int) alpha, 48, 63, 159));
-        } else { //过顶部图区域，标题栏定色
-            mHeaderContent.setBackgroundColor(Color.argb(255, 48, 63, 159));
-            //mHeaderContent.setVisibility(View.VISIBLE);
+            mHeaderContent.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+        } else {
+            //状态栏深颜色
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            //过顶部图区域，标题栏定色
+            mHeaderContent.setBackgroundColor(Color.argb(255, 255, 255, 255));
         }
     }
 }

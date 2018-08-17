@@ -15,6 +15,8 @@ import java.util.UUID;
 public class TextJava {
     public static void main(String[] str){
 
+
+
         List<String> list = new ArrayList<>();
         list.add("android");
         list.add("java");

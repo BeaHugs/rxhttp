@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -52,6 +54,14 @@ import butterknife.ButterKnife;
  */
 
 public class MainActivity extends BaseActivity<LoginBean, LogonPresenter> implements View.OnClickListener {
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @BindView(R.id.dialog_layout_text_input)
     EditText dialogLayoutTextInput;
@@ -112,12 +122,6 @@ public class MainActivity extends BaseActivity<LoginBean, LogonPresenter> implem
 
         String assetsData = getAssetsData("sort.json");
         Log.i("json",assetsData);
-
-
-
-
-
-
 
     }
     private ArrayList<ProvinceBean> options1Items = new ArrayList<>();
