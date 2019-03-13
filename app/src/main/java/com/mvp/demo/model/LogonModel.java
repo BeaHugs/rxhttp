@@ -2,16 +2,11 @@ package com.mvp.demo.model;
 
 import android.app.Application;
 
-import com.mvp.demo.base.BaseData;
 import com.mvp.demo.base.BaseModel;
-import com.mvp.demo.bean.LoginBean;
-import com.mvp.demo.bean.RedBean;
 
-import java.util.List;
 import java.util.Map;
 
 
-import retrofit2.Call;
 import retrofit2.Callback;
 
 /**
@@ -32,9 +27,7 @@ public class LogonModel<T> extends BaseModel<T> {
 
     @Override
     public void loadData(Map<String, Object> map, Callback<T> callback) {
-        apiSeriver.login(netWorkRequest.getRequestBody(map)).enqueue((Callback<BaseData<String>>) callback);
     }
     public void loadData2(Map<String, Object> map, Callback callback) {
-        apiSeriver.selectRed(netWorkRequest.getRequestBody(map)).enqueue(callback);
     }
 }

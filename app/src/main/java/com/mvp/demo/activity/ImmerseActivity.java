@@ -118,10 +118,6 @@ public class ImmerseActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    @Override
-    public Object getPresenter() {
-        return this;
-    }
 
     private void statusBar() {
         StatusBarUtils.fullScreen(this);

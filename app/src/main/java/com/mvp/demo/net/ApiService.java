@@ -1,16 +1,16 @@
 package com.mvp.demo.net;
 
-import com.mvp.demo.base.BaseData;
-import com.mvp.demo.bean.LoginBean;
-import com.mvp.demo.bean.RedBean;
 
-import java.util.List;
+import java.util.Map;
 
+import io.reactivex.Flowable;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 /**
  * @author Wang Yi Bo
@@ -19,20 +19,12 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-    /**
-     * 登录接口
-     * @param strJson
-     * @param callback
-     * @return
-     */
-    @POST("Customer/Logins")
-    Call<BaseData<String>> login(@Body RequestBody strJson);
 
-    /**
-     * 查询红包
-     * @param strJson
-     * @return
-     */
-    @POST("YPRedPackage/GetMyTicket")
-    Call<String> selectRed(@Body RequestBody strJson);
+
+    @POST()
+    @FormUrlEncoded
+    Flowable<ResponseBody> requestParams(@Url String url, @FieldMap Map<String, Object> params);
+
+    @POST()
+    Flowable<ResponseBody> requestFile(@Url String url, @Body RequestBody params);
 }

@@ -36,7 +36,6 @@ public abstract class BaseActivity<T,P> extends Activity implements IBaseDataBac
         if (isRegisterEventBus()){
             EventBusUtils.getDefault().register(this);
         }
-        mpre = getPresenter();
         ButterKnife.bind(this);
         initUI();
         initData();
@@ -66,7 +65,6 @@ public abstract class BaseActivity<T,P> extends Activity implements IBaseDataBac
     /** 初始化监听 **/
     protected abstract void initListener();
 
-    public abstract P getPresenter();
 
     public  boolean isRegisterEventBus(){
         return false;

@@ -4,56 +4,40 @@ package com.mvp.demo;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.mvp.demo.base.BaseActivity;
-import com.mvp.demo.bean.LoginBean;
-import com.mvp.demo.presenter.LogonPresenter;
-import com.mvp.demo.utils.DemoFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.KeyStore;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
  * Created by Administrator Wang  on 2018/3/9.
  */
 
-public class MainActivity extends BaseActivity<LoginBean, LogonPresenter> implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     Handler handler = new Handler(){
@@ -170,10 +154,6 @@ public class MainActivity extends BaseActivity<LoginBean, LogonPresenter> implem
 
     }
 
-    @Override
-    public LogonPresenter getPresenter() {
-        return new LogonPresenter(this);
-    }
 
     @Override
     public boolean isRegisterEventBus() {
@@ -192,7 +172,6 @@ public void getdata(){
                 map1.put("LoginName", "14300000000");
                 map1.put("LoginPass", "123456");
                 map.put("AppointEntity", map1);
-                mpre.loadData(map, getApplication());
                 break;
             case R.id.btn_select:
                 Map mapp = new HashMap<>();
@@ -201,15 +180,14 @@ public void getdata(){
                 Map<String, Object> childMap = new HashMap<>();
                 childMap.put("Type", 1);
                 mapp.put("AppointEntity", childMap);
-                mpre.loadData2(mapp, getApplication());
                 break;
         }
     }
 
 
     @Override
-    public void showSuccess(LoginBean loginBean) {
-        tv_text.setText(loginBean.toString());
+    public void showSuccess(Object o) {
+
     }
 
     @Override

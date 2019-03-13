@@ -3,7 +3,6 @@ package com.mvp.demo.utils;
 import android.app.Application;
 
 
-import com.mvp.demo.net.ApiUrl;
 import com.mvp.demo.net.NetWorkRequest;
 import com.mvp.demo.utils.auto.AutoLayoutConifg;
 
@@ -33,7 +32,6 @@ public class MyApplication extends Application{
         super.onCreate();
 
         //CrashReport.initCrashReport(getApplicationContext(), "7ee1d17deb", false);
-        NetWorkRequest.getNetWorkRequest().init(this, ApiUrl.HTTPHOST());
         JPushInterface.setDebugMode (true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init (this);            // 初始化 JPush
         //CrashHandler.getInstance().init(this);

@@ -16,7 +16,7 @@ import okhttp3.HttpUrl;
  * 作用: Cookie统一管理
  */
 
-public class CookieManager implements CookieJar{
+public class CookieManager implements CookieJar {
     //cookie存储
     private final ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
     @Override

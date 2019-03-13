@@ -2,7 +2,8 @@ package com.mvp.demo.net;
 
 import java.util.Map;
 
-import okhttp3.RequestBody;
+import io.reactivex.Flowable;
+import okhttp3.ResponseBody;
 
 /**
  * @author Wang Yi Bo
@@ -11,11 +12,33 @@ import okhttp3.RequestBody;
  */
 
 public interface INetWorkRequest {
-    String getAccept();
-    String getContentType();
-    String getXEquipment();
 
-    String getDesStr(Map<String,Object> map);
+    public String XEquipment_Key = "X-Equipment";
+    public String XEquipment_Value = "终端类型";
 
-    RequestBody getRequestBody(Map<String,Object> map);
+    public String Accept_Key = "Accept";
+    public String Accept_Value = "application/json";
+
+    public String ContentType_Value = "application/json; charset=utf-8";
+
+
+//    String getAccept();
+ //   String getContentType();
+//    String getXEquipment();
+
+     String getDesStr(Map<String, Object> map);
+
+
+    //请求参数
+    Map<String,Object> parameter();
+
+
+    //请求参数
+    public void response(Flowable<ResponseBody> responseBodyFlowable, HttpObserver iRequestCallBack);
+
+    public void upFile(String url, Map<String, Object> map, HttpObserver iRequestCallBack);
+
+    public void inRequest(String url, Map<String, Object> map, HttpObserver iRequestCallBack);
+
+
 }

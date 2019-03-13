@@ -49,45 +49,48 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     /** * eventbus      ****/
-    compile 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation files('libs/jcore-android-1.1.9.jar')
-    compile 'com.lovedise:permissiongen:0.0.6'
+    implementation 'com.lovedise:permissiongen:0.0.6'
     //图片加载框架
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
 //    compile 'com.github.bumptech.glide:glide:4.5.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
 
     implementation files('libs/GsonFormat.jar')
-    compile 'es.voghdev.pdfviewpager:library:1.0.3'
+    implementation 'es.voghdev.pdfviewpager:library:1.0.3'
     implementation project(':mylibrary')
     //腾讯 Bugly
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
-    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     //支付
-    compile 'com.alipay.euler:andfix:0.5.0@aar'
+    implementation 'com.alipay.euler:andfix:0.5.0@aar'
     //Okhttp依赖
-    compile 'com.squareup.okio:okio:1.5.0'
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    //拦截器
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    //Okhttp依赖
+    implementation 'com.squareup.okio:okio:1.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
     //Retrofit 依赖
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation project(':customview')
 
     /**
      * EventBus
      */
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
-    compile 'com.contrarywind:Android-PickerView:4.1.5'
+    implementation 'com.contrarywind:Android-PickerView:4.1.5'
 //注：实际引入请把"3.x"替换成具体版本号，最新版本号请以GitHub上面提供的为准
 }

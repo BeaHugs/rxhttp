@@ -1,27 +1,28 @@
 package com.mvp.demo.net;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mvp.demo.utils.DigestUtils;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 
 /**
  * @author Wang Yi Bo
@@ -37,12 +38,15 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class NetWorkRequest implements INetWorkRequest {
 
     private static NetWorkRequest netWorkRequest = null;
+    private ApiService apiService;
+
     public NetWorkRequest() {
     }
-    public static NetWorkRequest getNetWorkRequest(){
-        if (netWorkRequest==null){
-            synchronized (NetWorkRequest.class){
-                if (netWorkRequest==null){
+
+    public static NetWorkRequest getNetWorkRequest() {
+        if (netWorkRequest == null) {
+            synchronized (NetWorkRequest.class) {
+                if (netWorkRequest == null) {
                     netWorkRequest = new NetWorkRequest();
                 }
             }
@@ -50,117 +54,56 @@ public class NetWorkRequest implements INetWorkRequest {
         return netWorkRequest;
     }
 
-    private  OkHttpClient okHttpClient = null;
-    private  Retrofit retrofit = null;
+    private OkHttpClient okHttpClient = null;
+    private Retrofit retrofit = null;
     private Context context;
-    private String  baseUrl;
 
     /**
      * 初始化  Okhttp 和 Retrofit
+     *
      * @param context
-     * @param baseUrl
      * @return
      */
-    public NetWorkRequest init(Context context,String baseUrl){
+    public NetWorkRequest init(Context context) {
         this.context = context;
-        this.baseUrl = baseUrl;
-        File sdcache = new File(Environment.getExternalStorageDirectory(), "demo");
-        int cacheSize = 10 * 1024 * 1024;
         //okhttp拦截器
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.i("Log", message.toString());
+                Log.i("retrofit", message.toString());
             }
         });
         //拦截器日志分类
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClient = new OkHttpClient.Builder().connectTimeout(15, TimeUnit.MINUTES)
-                .addInterceptor(httpLoggingInterceptor)
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)//15秒
+//                .readTimeout(60000, TimeUnit.SECONDS)
+//                .writeTimeout(60000, TimeUnit.SECONDS)
+//                .retryOnConnectionFailure(false)
+                .addInterceptor(httpLoggingInterceptor)    //日志拦截器
                 //如果网络拦截器   一下要注释掉
-                .cache(new Cache(sdcache.getAbsoluteFile(), cacheSize))
-                .addInterceptor(new BaseInterceptor())
-                //.cookieJar(new CookieManager())
+                //.addInterceptor(new BaseInterceptor()) //统一请求头
+                //.cookieJar(new CookieManager())  //同步cookie
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(ScalarsConverterFactory.create())  //string
-                .addConverterFactory(GsonConverterFactory.create()) //Gson解析
-                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("http://api.qinjiakonggu.com/")
                 .client(okHttpClient)//支持Okhttp
                 .build();
+        apiService = retrofit.create(ApiService.class);
         return this;
     }
 
-
-    /**
-     * 获取接口Api
-     * @param tClass
-     * @param <T>
-     * @return 网络接口对象
-     */
-    public <T> T getApiSeriver(Class<T> tClass) {
-        if (retrofit==null){
-            throw new NullPointerException("retrofit Can't be empty 请在Application初始化");
-        }
-        return retrofit.create(tClass);
-    }
-
-    /**
-     * 请求方式   Post     Okhttp使用
-     * @param url         接口地址
-     * @param map         Map 集合
-     * @param callback   接口回调
-     */
-    public void doPostJson(String url, Map<Object,String> map, Callback callback) {
-        Gson gson = new Gson();
-        String strJson = gson.toJson(map);
-        String encrypt = null;
-        try {
-            encrypt = DigestUtils.encrypt(strJson, DigestUtils.encryptKey, true);
-            Request request = requestInfo(url,encrypt);
-            Call call = okHttpClient.newCall(request);
-            call.enqueue(callback);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private Request requestInfo(String url, String jsonParams){
-        RequestBody requestBody = RequestBody.create(MediaType.parse(getContentType()), getNewString(jsonParams));
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .header("X-Equipment", getXEquipment())
-                .header("Accept",getAccept())
-                .build();
-        return request;
-    }
 
     private String getNewString(String str) {
         String newStr = "{\"DesEncToDes\":\"" + str.trim() + "\"}";
         return newStr;
     }
 
-    @Override
-    public String getAccept() {
-        return "application/json";
-    }
-
-    @Override
-    public String getContentType() {
-        return "application/json; charset=utf-8";
-    }
-
-    @Override
-    public String getXEquipment() {
-        return "Android";
-    }
-
     /**
      * 对Map 集合加密
+     *
      * @param map
      * @return
      */
@@ -179,13 +122,86 @@ public class NetWorkRequest implements INetWorkRequest {
 
     /**
      * 用于 Retrofit 上传Json
+     *
      * @param map
      * @return
      */
-    @Override
-    public RequestBody getRequestBody(Map<String, Object> map) {
+    public void response(String url, Map<String, Object> map, final HttpObserver iRequestCallBack) {
         String desStr = getDesStr(map);
-        RequestBody requestBody = RequestBody.create(MediaType.parse(getContentType()), getNewString(desStr));
-        return requestBody;
+        RequestBody requestBody = RequestBody.create(MediaType.parse(ContentType_Value), getNewString(desStr));
+        Flowable<ResponseBody> responseBodyFlowable = apiService.requestFile(url, requestBody);
+        response(responseBodyFlowable, iRequestCallBack);
     }
+
+    private Map<String, Object> map;
+    @Override
+    public Map<String, Object> parameter() {
+        if (map != null) {
+            //添加请求中的必填参数
+            map.put("ip", "192.168.1.93");
+            map.put("sign", "5629d218db6ea97e2f594c2a008c0e19");
+            map.put("equipment", "android");
+            map.put("type_number", "OPPO_OPPOR11t_27");
+            map.put("action_city", "北京市");
+            map.put("version", "1.0.16");
+            map.put("token", "cb414aaf0f5db8b17d56f54ae30fb4a8");
+            map.put("uid", "36");
+            map.put("action", "v1_0_12/shop/getshoplist");
+            map.put("timestamp", "1552374493");
+            return map;
+        }
+        return null;
+    }
+
+    @Override
+    public void response(final Flowable<ResponseBody> responseBodyFlowable, HttpObserver iRequestCallBack) {
+        responseBodyFlowable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(iRequestCallBack);
+    }
+
+
+    @Override
+    public void upFile(String url, Map<String, Object> map, HttpObserver iRequestCallBack) {
+        this.map = map;
+        RequestBody requestBody = formBody();
+        if (requestBody != null) {
+            Flowable<ResponseBody> responseBodyFlowable = apiService.requestFile(url, requestBody);
+            response(responseBodyFlowable, iRequestCallBack);
+        }
+    }
+
+    @Override
+    public void inRequest(String url, Map<String, Object> map, HttpObserver iRequestCallBack) {
+        this.map = map;
+        if (parameter() != null) {
+            Log.i("inRequest", "请求参数不能为空!!!");
+            Flowable<ResponseBody> responseBodyFlowable = apiService.requestParams(url, parameter());
+            response(responseBodyFlowable, iRequestCallBack);
+        }
+    }
+
+    private RequestBody formBody() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (parameter() != null) {
+            for (Map.Entry<String, Object> entry : parameter().entrySet()) {
+                Object value = entry.getValue();
+                if (value instanceof File) {
+                    File file = (File) value;
+                    builder.addFormDataPart(entry.getKey().toString(), file.getName(), RequestBody.create(MediaType.parse("/*"), file));
+                } else if (value instanceof List) {
+                    List<File> fileList = (List<File>) value;
+                    for (File files : fileList) {
+                        builder.addFormDataPart(entry.getKey().toString()+"[]", files.getName(), RequestBody.create(MediaType.parse("/*"), files));
+                    }
+                } else if (value instanceof String) {
+                    builder.addFormDataPart(entry.getKey().toString(), entry.getValue().toString());
+                }
+            }
+        }
+        return builder.build();
+    }
+
 }

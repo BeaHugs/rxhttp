@@ -2,7 +2,6 @@ package com.mvp.demo;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -10,11 +9,9 @@ import android.widget.Button;
 
 import com.mvp.demo.activity.Demo2Activity;
 import com.mvp.demo.base.BaseActivity;
-import com.mvp.demo.bean.LoginBean;
 import com.mvp.demo.utils.Event;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class DemoActivity extends BaseActivity implements View.OnClickListener {
@@ -56,10 +53,6 @@ public class DemoActivity extends BaseActivity implements View.OnClickListener {
         btn_click.setOnClickListener(this);
     }
 
-    @Override
-    public Object getPresenter() {
-        return null;
-    }
 
     /**
      * 是否注册
@@ -74,8 +67,6 @@ public class DemoActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onReceiveEvent(Event event) {
         super.onReceiveEvent(event);
-        LoginBean data = (LoginBean) event.getData();
-        Log.i("DATA", data.getAddress());
     }
 
     @Override
