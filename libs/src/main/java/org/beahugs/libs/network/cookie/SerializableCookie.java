@@ -18,6 +18,7 @@ import okhttp3.Cookie;
  * @Version: 1.0
  */
 public class SerializableCookie implements Serializable {
+    //
     private static final long serialVersionUID = 6374381323722046732L;
 
     public static final String HOST = "host";

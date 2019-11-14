@@ -29,7 +29,7 @@ public class SPCookieStore implements CookieStore {
     /**
      * 数据结构如下
      * Url.host -> cookieToken1,cookieToken2,cookieToken3
-     * cookie_cookieToken1 -> cookie1
+     * cookie_cookieToken1  -> cookie1
      * cookie_cookieToken2 -> cookie2
      * cookie_cookieToken3 -> cookie3
      */

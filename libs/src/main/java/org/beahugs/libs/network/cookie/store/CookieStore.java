@@ -11,7 +11,7 @@ import okhttp3.HttpUrl;
  */
 public interface CookieStore {
 
-    /** 保存url对应所有cookie */
+    /** 保存url对应所有cookie  */
     void saveCookie(HttpUrl url, List<Cookie> cookie);
 
     /** 保存url对应所有cookie */
