@@ -45,9 +45,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
 
     //适配方案
-    api 'me.jessyan:autosize:1.1.2'
+    //api 'me.jessyan:autosize:1.1.2'
 
     //沉浸式
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
-
+    api project(':common')
 }

@@ -3,10 +3,14 @@ package org.beahugs.libs.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.beahugs.common.weiget.loadingview.XLoadingView;
+import org.beahugs.libs.R;
 
 /**
  * @Author: wangyibo
@@ -16,11 +20,14 @@ public abstract class BaseActivity extends AppCompatActivity {
    // private Unbinder unBinder;
 
     private ProgressDialog loadingDialog = null;
+    private XLoadingView loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        View inflate = View.inflate(this, getLayoutId(), null);
+        setContentView(inflate);
+        loadingView = inflate.findViewById(R.id.loading_view);
         Intent intent = getIntent();
         if (intent != null)
             getIntent(intent);

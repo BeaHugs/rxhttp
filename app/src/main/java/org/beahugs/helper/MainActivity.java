@@ -3,6 +3,7 @@ package org.beahugs.helper;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.beahugs.common.weiget.loadingview.XLoadingView;
 import org.beahugs.libs.base.BaseMvpActivity;
 import org.beahugs.libs.mvp.BasePresenter;
 
@@ -22,6 +23,8 @@ public class MainActivity extends BaseMvpActivity {
     @Override
     protected void initView() {
 
+//        XLoadingView loading_view = findViewById(R.id.loading_view);
+//        loading_view.showNoNetwork();
     }
 
     @Override

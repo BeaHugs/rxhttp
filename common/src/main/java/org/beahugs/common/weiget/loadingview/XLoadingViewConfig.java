@@ -1,9 +1,9 @@
 package org.beahugs.common.weiget.loadingview;
 
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
-import com.youth.xframe.R;
+import org.beahugs.common.R;
 
 public class XLoadingViewConfig {
 
