@@ -1,6 +1,6 @@
 package org.beahugs.libs.network.manage;
 
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 import org.beahugs.libs.network.base.BaseApiCacheFactory;
 
 import java.util.HashMap;
@@ -107,7 +107,7 @@ public class RxUrlManager {
     public RxUrlManager clear() {
         urlMap.clear();
         BaseApiCacheFactory.getInstance().clearAllApi();
-        RxHttpUtils.removeAllCookie();
+        RxUtils.removeAllCookie();
         return this;
     }
 }

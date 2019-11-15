@@ -2,7 +2,7 @@ package org.beahugs.libs.network.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -150,7 +150,7 @@ public class SPUtils {
      * @return
      */
     private static SharedPreferences obtainPref() {
-        Context context = RxHttpUtils.getContext();
+        Context context = RxUtils.getContext();
         SharedPreferences pref = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return pref;

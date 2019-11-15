@@ -1,6 +1,6 @@
 package org.beahugs.libs.network.updownload;
 
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +28,7 @@ public class DownloadManager {
      */
     public File saveFile(ResponseBody response, String destFileName, String destFileDir, ProgressListener progressListener) throws IOException {
 
-        String defaultDestFileDir = RxHttpUtils.getContext().getExternalFilesDir(null) + File.separator;
+        String defaultDestFileDir = RxUtils.getContext().getExternalFilesDir(null) + File.separator;
 
         long contentLength = response.contentLength();
         InputStream is = null;

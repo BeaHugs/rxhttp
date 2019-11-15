@@ -8,7 +8,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 
 import java.util.UUID;
 
@@ -28,8 +28,8 @@ public class DeviceInfo {
         PackageInfo pi;
         String versionNum;
         try {
-            PackageManager pm = RxHttpUtils.getContext().getPackageManager();
-            pi = pm.getPackageInfo(RxHttpUtils.getContext().getPackageName(), PackageManager.GET_CONFIGURATIONS);
+            PackageManager pm = RxUtils.getContext().getPackageManager();
+            pi = pm.getPackageInfo(RxUtils.getContext().getPackageName(), PackageManager.GET_CONFIGURATIONS);
             versionNum = pi.versionName;
         } catch (Exception e) {
             versionNum = "0";
@@ -47,7 +47,7 @@ public class DeviceInfo {
      */
     public static String getUUID() {
 
-        Context context = RxHttpUtils.getContext();
+        Context context = RxUtils.getContext();
 
         String uuid = (String) SPUtils.get(context, "PHONE_UUID", "");
 

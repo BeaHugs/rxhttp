@@ -2,7 +2,7 @@ package org.beahugs.libs.network.utils;
 
 import android.widget.Toast;
 
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 
 
 /**
@@ -21,7 +21,7 @@ public class ToastUtils {
      */
     public static void showToast(String msg) {
         if (mToast == null) {
-            mToast = Toast.makeText(RxHttpUtils.getContext(), msg, Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(RxUtils.getContext(), msg, Toast.LENGTH_SHORT);
         } else {
             mToast.setText(msg);
         }

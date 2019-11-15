@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import org.beahugs.libs.network.RxHttpUtils;
+import org.beahugs.libs.network.RxUtils;
 
 /**
  * @Author: wangyibo
@@ -17,7 +17,7 @@ public class NetWorkState {
      * @return 返回值
      */
     public static boolean isNetworkConnected() {
-        Context context = RxHttpUtils.getContext();
+        Context context = RxUtils.getContext();
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();

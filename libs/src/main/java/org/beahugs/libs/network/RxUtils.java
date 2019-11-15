@@ -24,18 +24,18 @@ import okhttp3.ResponseBody;
  * @Version: 1.0
  */
 
-public class RxHttpUtils {
+public class RxUtils {
 
     @SuppressLint("StaticFieldLeak")
-    private static RxHttpUtils instance;
+    private static RxUtils instance;
     @SuppressLint("StaticFieldLeak")
     private static Application context;
 
-    public static RxHttpUtils getInstance() {
+    public static RxUtils getInstance() {
         if (instance == null) {
-            synchronized (RxHttpUtils.class) {
+            synchronized (RxUtils.class) {
                 if (instance == null) {
-                    instance = new RxHttpUtils();
+                    instance = new RxUtils();
                 }
             }
 
@@ -49,7 +49,7 @@ public class RxHttpUtils {
      *
      * @param app Application
      */
-    public RxHttpUtils init(Application app) {
+    public RxUtils init(Application app) {
         context = app;
         return this;
     }
@@ -67,7 +67,7 @@ public class RxHttpUtils {
      */
     private static void checkInitialize() {
         if (context == null) {
-            throw new ExceptionInInitializerError("请先在全局Application中调用 RxHttpUtils.getInstance().init(this) 初始化！");
+            throw new ExceptionInInitializerError("请先在全局Application中调用 RxUtils.getInstance().init(this) 初始化！");
         }
     }
 
