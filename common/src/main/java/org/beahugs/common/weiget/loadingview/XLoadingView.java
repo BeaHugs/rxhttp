@@ -87,6 +87,19 @@ public class XLoadingView extends FrameLayout {
         mResId.put(mContentViewResId, view);
     }
 
+
+
+
+    public final void hideLayout(){
+        if (isShowStatue){
+            for (View view : mResId.values()) {
+                view.setVisibility(GONE);
+            }
+        }
+    }
+
+
+
     public final void showEmpty() {
         show(mEmptyViewResId);
     }
@@ -107,11 +120,15 @@ public class XLoadingView extends FrameLayout {
         show(mContentViewResId);
     }
 
+    private boolean isShowStatue;
+
     private void show(int resId) {
+
         for (View view : mResId.values()) {
             view.setVisibility(GONE);
         }
         layout(resId).setVisibility(VISIBLE);
+        isShowStatue = true;
     }
 
     private View layout(int resId) {

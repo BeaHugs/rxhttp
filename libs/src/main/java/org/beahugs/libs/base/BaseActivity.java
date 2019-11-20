@@ -3,6 +3,7 @@ package org.beahugs.libs.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.LayoutRes;
@@ -16,18 +17,19 @@ import org.beahugs.libs.R;
  * @Author: wangyibo
  * @Version: 1.0
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity  {
    // private Unbinder unBinder;
 
     private ProgressDialog loadingDialog = null;
-    private XLoadingView loadingView;
+    protected XLoadingView loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View inflate = View.inflate(this, getLayoutId(), null);
-        setContentView(inflate);
-        loadingView = inflate.findViewById(R.id.loading_view);
+        setContentView(R.layout.base_layout);
+        loadingView = findViewById(R.id.base_loading_view);
+        loadingView.addView(inflate);
         Intent intent = getIntent();
         if (intent != null)
             getIntent(intent);
@@ -38,6 +40,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initData();
         initListener();
+        loadingView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    onRetry();
+            }
+        });
     }
 
 
@@ -117,12 +125,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 显示进度框
+     * 错误页面
      */
-    protected void showLoadingDialog() {
-        createLoadingDialog();
-        if (!loadingDialog.isShowing())
-            loadingDialog.show();
+    protected void showError() {
+        if (loadingView!=null){
+            Log.i("showError","showError");
+            loadingView.showError();
+        }
+    }
+    /**
+     * 没有网络
+     */
+    protected void showNoNetwork() {
+        if (loadingView!=null){
+            loadingView.showNoNetwork();
+        }
+    }
+    /**
+     * 没有内容
+     */
+    protected void showEmpty() {
+        if (loadingView!=null){
+            loadingView.showEmpty();
+        }
+    }
+
+
+    protected void hideLayout(){
+        if (loadingView != null){
+            loadingView.hideLayout();
+        }
     }
 
     /**
@@ -164,6 +196,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /** 初始数据的代码写在这个方法中，用于从服务器获取数据 */
     protected abstract void initData();
 
+    protected abstract void onRetry();
 
 
 }

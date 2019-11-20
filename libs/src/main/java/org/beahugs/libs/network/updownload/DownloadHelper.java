@@ -2,7 +2,7 @@ package org.beahugs.libs.network.updownload;
 
 
 import org.beahugs.libs.network.base.BaseApiCacheFactory;
-import org.beahugs.libs.network.interceptor.Transformer;
+import org.beahugs.libs.network.interceptor.BaseObservableTransformer;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -21,6 +21,6 @@ public class DownloadHelper {
                 .setOkClient(new OkHttpClient.Builder().addInterceptor(new DownloadInterceptor()).build())
                 .createApi(DEFAULT_DOWNLOAD_KEY, DEFAULT_BASE_URL, DownloadApi.class)
                 .downloadFile(fileUrl)
-                .compose(Transformer.<ResponseBody>switchSchedulers());
+                .compose(BaseObservableTransformer.<ResponseBody>switchSchedulers());
     }
 }

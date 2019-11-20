@@ -1,13 +1,14 @@
 package org.beahugs.helper;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import org.beahugs.common.weiget.loadingview.XLoadingView;
+import org.beahugs.helper.presenter.MainPresenter;
 import org.beahugs.libs.base.BaseMvpActivity;
-import org.beahugs.libs.mvp.BasePresenter;
 
-public class MainActivity extends BaseMvpActivity {
+public class MainActivity extends BaseMvpActivity<MainPresenter>  {
 
 
     @Override
@@ -17,14 +18,13 @@ public class MainActivity extends BaseMvpActivity {
 
     @Override
     protected void getIntent(Intent intent) {
-
+        mPresenter.dataInfo();
     }
 
     @Override
     protected void initView() {
 
-//        XLoadingView loading_view = findViewById(R.id.loading_view);
-//        loading_view.showNoNetwork();
+
     }
 
     @Override
@@ -38,12 +38,18 @@ public class MainActivity extends BaseMvpActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected void onRetry() {
+        mPresenter.dataInfo();
+    }
+
+    @Override
+    protected MainPresenter createPresenter() {
+        return new MainPresenter();
     }
 
     @Override
     public void showError(String msg) {
 
     }
+
 }
