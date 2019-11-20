@@ -16,7 +16,7 @@
 
 ### 网络库使用介绍:
 
-#### 、在application类里可进行初始化全局配置
+#### 1、在application类里可进行初始化全局配置
 
         /**
          *统一请求头
@@ -63,4 +63,31 @@
                 .setOkClient(build)//设置的OKhttp参数
                 .setBaseUrl("https://www.wanandroid.com");//网络请求的baseUrl
                 
+#### 2.Api请求方式及代码示例
+##### 2.1 创建apiService
+  public interface WanAndroid {
+    @GET("/wxarticle/chapters/json")
+    Flowable<PublicNumbersBean> getListofPublicNumbers();
+}
+      
+      
+      RxUtils.createApi(WanAndroid.class)//创建Apiservice对象
+                .FgetListofPublicNumbers()
+                .compose(BaseFlowableTransFormer.<PublicNumbersBean>switchSchedulers())//BaseFlowableTransFormer 自定义subscribe格式
+                .subscribeWith(new BaseDisposableSubscriber<PublicNumbersBean>() {
+
+                    @Override
+                    public void doOnError(String errorMsg) {
+                    }
+
+                    @Override
+                    public void doOnNext(PublicNumbersBean publicNumbersBean) {
+                    }
+
+                    @Override
+                    public void doOnCompleted() {
+
+                    }
+                });
+     
                 
