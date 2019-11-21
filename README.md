@@ -109,5 +109,37 @@
 
                     }
                 });
+                
+   ##### 2.3 上传单张文件
+    
+                RxUtils.uploadImg("上传文件服务器地址","本地文件地址")
+                .compose(BaseObservableTransformer.<ResponseBody>switchSchedulers())
+                .subscribe(new CommonObserver<ResponseBody>() {
+                    @Override
+                    protected void onError(String errorMsg) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseBody responseBody) {
+
+                    }
+                });
+    
+   ##### 2.3 上传多张文件
+                
+                RxUtils.uploadImages("上传文件服务器地址",List<String> 文件)
+                .compose(BaseObservableTransformer.<ResponseBody>switchSchedulers())
+                .subscribe(new CommonObserver<ResponseBody>() {
+                    @Override
+                    protected void onError(String errorMsg) {
+                        
+                    }
+
+                    @Override
+                    protected void onSuccess(ResponseBody responseBody) {
+
+                    }
+                });
      
                 
