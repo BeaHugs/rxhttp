@@ -67,9 +67,6 @@
 ##### 2.1 创建apiService
  
 
-
-
-
     public interface WanAndroid {
       @GET("/wxarticle/chapters/json")
        Flowable<PublicNumbersBean> getListofPublicNumbers();//get请求方式
@@ -90,6 +87,25 @@
 
                     @Override
                     public void doOnCompleted() {
+
+                    }
+                });
+  
+  
+  ##### 2.2 下载文件资源
+                
+        String url = "https://imtt.dd.qq.com/16891/apk/2E8BDD7686474A7BC4A51ADC3667CABF.apk";
+        final String fileName = "qq.apk";
+
+        RxUtils.downloadFile(url)
+                .subscribe(new DownloadObserver(fileName) {
+                    @Override
+                    protected void onError(String errorMsg) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(long bytesRead, long contentLength, float progress, boolean done, String filePath) {
 
                     }
                 });
