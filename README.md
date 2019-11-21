@@ -65,15 +65,16 @@
                 
 #### 2.Api请求方式及代码示例
 ##### 2.1 创建apiService
+ 
 
 
 
-  public interface WanAndroid {
-    @GET("/wxarticle/chapters/json")
-    Flowable<PublicNumbersBean> getListofPublicNumbers();
-}
-      
-      
+
+    public interface WanAndroid {
+      @GET("/wxarticle/chapters/json")
+       Flowable<PublicNumbersBean> getListofPublicNumbers();//get请求方式
+    }
+    
       RxUtils.createApi(WanAndroid.class)//创建Apiservice对象
                 .FgetListofPublicNumbers()
                 .compose(BaseFlowableTransFormer.<PublicNumbersBean>switchSchedulers())//BaseFlowableTransFormer 自定义subscribe格式
