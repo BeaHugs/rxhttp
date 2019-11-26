@@ -3,7 +3,7 @@ package org.beahugs.libs.network.updownload;
 import android.annotation.SuppressLint;
 
 
-import org.beahugs.libs.network.observer.BaseObserver;
+import org.beahugs.libs.network.callback.BaseObserver;
 import org.beahugs.libs.network.manage.RxHttpManager;
 
 import java.io.IOException;

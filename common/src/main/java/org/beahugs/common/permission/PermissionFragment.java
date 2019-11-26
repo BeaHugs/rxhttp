@@ -28,7 +28,7 @@ public final class PermissionFragment extends Fragment implements Runnable {
     private static final String REQUEST_CODE = "request_code"; // 请求码（自动生成）
     private static final String REQUEST_CONSTANT = "request_constant"; // 是否不断请求
 
-    private final static SparseArray<OnPermission> sContainer = new SparseArray<>();
+    private final static SparseArray<OnPerCallBack> sContainer = new SparseArray<>();
 
     public static PermissionFragment newInstance(ArrayList<String> permissions, boolean constant) {
         PermissionFragment fragment = new PermissionFragment();
@@ -52,7 +52,7 @@ public final class PermissionFragment extends Fragment implements Runnable {
      * 准备请求
      */
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    public void prepareRequest(Activity activity, OnPermission call) {
+    public void prepareRequest(Activity activity, OnPerCallBack call) {
         // 将当前的请求码和对象添加到集合中
         sContainer.put(getArguments().getInt(REQUEST_CODE), call);
         String name = activity.getClass().getName();
@@ -100,7 +100,7 @@ public final class PermissionFragment extends Fragment implements Runnable {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-        OnPermission call = sContainer.get(requestCode);
+        OnPerCallBack call = sContainer.get(requestCode);
 
         // 根据请求码取出的对象为空，就直接返回不处理
         if (call == null) return;

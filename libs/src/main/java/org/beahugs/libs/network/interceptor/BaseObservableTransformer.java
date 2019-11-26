@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * @Version: 1.0
  */
 
-public class Transformer {
+public class BaseObservableTransformer {
 
     /**
      * 无参数

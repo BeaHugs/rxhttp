@@ -1,4 +1,4 @@
-package org.beahugs.libs.network.observer;
+package org.beahugs.libs.network.callback;
 
 import androidx.annotation.NonNull;
 

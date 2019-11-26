@@ -15,13 +15,13 @@ import static org.beahugs.libs.network.utils.NetWorkState.isNetworkConnected;
  * @Version: 1.0
  */
 
-public class NoNetCacheInterceptor implements Interceptor {
+public class BaseNetCacheInterceptor implements Interceptor {
     /**
      * 无网络缓存时间3600秒
      */
     private int noNetCacheTime;
 
-    public NoNetCacheInterceptor(int noNetCacheTime) {
+    public BaseNetCacheInterceptor(int noNetCacheTime) {
         this.noNetCacheTime = noNetCacheTime;
     }
 

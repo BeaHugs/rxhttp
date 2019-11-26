@@ -15,7 +15,7 @@ import java.util.List;
  * @Author: wangyibo
  * @Version: 1.0
  */
-public final class XXPermissions {
+public final class RxPermission {
 
     private Activity mActivity;
     private List<String> mPermissions;
@@ -24,21 +24,21 @@ public final class XXPermissions {
     /**
      * 私有化构造函数
      */
-    private XXPermissions(Activity activity) {
+    private RxPermission(Activity activity) {
         mActivity = activity;
     }
 
     /**
      * 设置请求的对象
      */
-    public static XXPermissions with(Activity activity) {
-        return new XXPermissions(activity);
+    public static RxPermission with(Activity activity) {
+        return new RxPermission(activity);
     }
 
     /**
      * 设置权限组
      */
-    public XXPermissions permission(String... permissions) {
+    public RxPermission permission(String... permissions) {
         if (mPermissions == null) {
             mPermissions = new ArrayList<>(permissions.length);
         }
@@ -49,7 +49,7 @@ public final class XXPermissions {
     /**
      * 设置权限组
      */
-    public XXPermissions permission(String[]... permissions) {
+    public RxPermission permission(String[]... permissions) {
         if (mPermissions == null) {
             int length = 0;
             for (String[] permission : permissions) {
@@ -66,7 +66,7 @@ public final class XXPermissions {
     /**
      * 设置权限组
      */
-    public XXPermissions permission(List<String> permissions) {
+    public RxPermission permission(List<String> permissions) {
         if (mPermissions == null) {
             mPermissions = permissions;
         }else {
@@ -78,7 +78,7 @@ public final class XXPermissions {
     /**
      * 被拒绝后继续申请，直到授权或者永久拒绝
      */
-    public XXPermissions constantRequest() {
+    public RxPermission constantRequest() {
         mConstant = true;
         return this;
     }
@@ -87,7 +87,7 @@ public final class XXPermissions {
      * 请求权限
      */
     @RequiresApi(api = Build.VERSION_CODES.DONUT)
-    public void request(OnPermission call) {
+    public void request(OnPerCallBack call) {
         // 如果没有指定请求的权限，就使用清单注册的权限进行请求
         if (mPermissions == null || mPermissions.isEmpty()) mPermissions = PermissionUtils.getManifestPermissions(mActivity);
         if (mPermissions == null || mPermissions.isEmpty()) throw new IllegalArgumentException("The requested permission cannot be empty");

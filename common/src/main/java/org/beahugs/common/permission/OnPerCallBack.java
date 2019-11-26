@@ -6,7 +6,7 @@ import java.util.List;
  * @Author: wangyibo
  * @Version: 1.0
  */
-public interface OnPermission {
+public interface OnPerCallBack {
     /**
      * 有权限被同意授予时回调
      *

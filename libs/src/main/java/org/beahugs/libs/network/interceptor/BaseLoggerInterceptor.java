@@ -11,7 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @Author: wangyibo
  * @Version: 1.0
  */
-public class RxHttpLogger implements HttpLoggingInterceptor.Logger {
+public class BaseLoggerInterceptor implements HttpLoggingInterceptor.Logger {
     private StringBuffer mMessage = new StringBuffer();
 
     @Override

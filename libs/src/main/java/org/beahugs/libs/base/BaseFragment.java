@@ -106,15 +106,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         return mActivity;
     }
 
-    @Override
-    public void showLoading() {
-        mActivity.showLoadingDialog();
-    }
 
-    @Override
-    public void hideLoading() {
-        mActivity.hideLoadingDialog();
-    }
 
 
     /**

@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import org.beahugs.libs.network.cookie.CookieJarImpl;
 import org.beahugs.libs.network.cookie.store.CookieStore;
 import org.beahugs.libs.network.utils.SSLUtils;
-import org.beahugs.libs.network.interceptor.HeaderInterceptor;
-import org.beahugs.libs.network.interceptor.NetCacheInterceptor;
-import org.beahugs.libs.network.interceptor.NoNetCacheInterceptor;
-import org.beahugs.libs.network.interceptor.RxHttpLogger;
-import org.beahugs.libs.network.interfaces.BuildHeadersListener;
+import org.beahugs.libs.network.interceptor.BaseHeaderInterceptor;
+import org.beahugs.libs.network.interceptor.BaseCacheInterceptor;
+import org.beahugs.libs.network.interceptor.BaseNetCacheInterceptor;
+import org.beahugs.libs.network.interceptor.BaseLoggerInterceptor;
+import org.beahugs.libs.network.interfaces.BaseHeadersListener;
 
 import java.io.File;
 import java.io.InputStream;
@@ -83,15 +83,15 @@ public class OkHttpInfo {
         private String password;
         private InputStream[] certificates;
         private Interceptor[] interceptors;
-        private BuildHeadersListener buildHeadersListener;
+        private BaseHeadersListener baseHeadersListener;
         private HostnameVerifier hostnameVerifier;
 
         public Builder(Context context) {
             this.context = context;
         }
 
-        public Builder setHeaders(BuildHeadersListener buildHeadersListener) {
-            this.buildHeadersListener = buildHeadersListener;
+        public Builder setHeaders(BaseHeadersListener baseHeadersListener) {
+            this.baseHeadersListener = baseHeadersListener;
             return this;
         }
 
@@ -198,7 +198,7 @@ public class OkHttpInfo {
          */
         private void setDebugConfig() {
             if (isDebug) {
-                HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new RxHttpLogger());
+                HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new BaseLoggerInterceptor());
                 logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                 okHttpClientBuilder.addInterceptor(logInterceptor);
             }
@@ -209,11 +209,11 @@ public class OkHttpInfo {
          * 配置headers
          */
         private void setHeadersConfig() {
-            if (buildHeadersListener != null) {
-                okHttpClientBuilder.addInterceptor(new HeaderInterceptor() {
+            if (baseHeadersListener != null) {
+                okHttpClientBuilder.addInterceptor(new BaseHeaderInterceptor() {
                     @Override
                     public Map<String, String> buildHeaders() {
-                        return buildHeadersListener.buildHeaders();
+                        return baseHeadersListener.buildHeaders();
                     }
                 });
             }
@@ -248,8 +248,8 @@ public class OkHttpInfo {
 
                 okHttpClientBuilder
                         .cache(cache)
-                        .addInterceptor(new NoNetCacheInterceptor(noNetCacheTime))
-                        .addNetworkInterceptor(new NetCacheInterceptor(cacheTime));
+                        .addInterceptor(new BaseNetCacheInterceptor(noNetCacheTime))
+                        .addNetworkInterceptor(new BaseCacheInterceptor(cacheTime));
             }
         }
 

@@ -13,7 +13,7 @@ import okhttp3.Response;
  * @Version: 1.0
  */
 
-public abstract class HeaderInterceptor implements Interceptor {
+public abstract class BaseHeaderInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {

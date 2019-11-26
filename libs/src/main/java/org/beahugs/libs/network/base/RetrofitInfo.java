@@ -3,7 +3,7 @@ package org.beahugs.libs.network.base;
 
 import org.beahugs.libs.network.gson.GsonAdapter;
 import org.beahugs.libs.network.utils.SSLUtils;
-import org.beahugs.libs.network.interceptor.RxHttpLogger;
+import org.beahugs.libs.network.interceptor.BaseLoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -92,7 +92,7 @@ public class RetrofitInfo {
         SSLUtils.SSLParams sslParams = SSLUtils.getSslSocketFactory();
         builder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new RxHttpLogger());
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new BaseLoggerInterceptor());
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(loggingInterceptor);
 
