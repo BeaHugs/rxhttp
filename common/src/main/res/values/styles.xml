@@ -18,4 +18,6 @@
         <item name="android:paddingRight">@dimen/XFrame_spacing_large</item>
     </style>
 
+
+
 </resources>

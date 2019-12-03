@@ -1,5 +1,8 @@
 package org.beahugs.common.weiget.loadingview;
-
+/**
+ * @Author: wangyibo
+ * @Version: 1.0
+ */
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,10 +18,7 @@ import org.beahugs.common.R;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @Author: wangyibo
- * @Version: 1.0
- */
+
 public class XLoadingView extends FrameLayout {
 
     private int mEmptyViewResId;

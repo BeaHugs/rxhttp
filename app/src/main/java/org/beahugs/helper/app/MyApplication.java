@@ -23,11 +23,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class MyApplication extends Application {
 
-    private SSLUtils.SSLParams sslParams3;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //initAutoSize();
+
 
         /**
          *统一请求头
@@ -76,6 +78,12 @@ public class MyApplication extends Application {
                 .setOkClient(build)//设置的OKhttp参数
                 .setBaseUrl("https://www.wanandroid.com");//网络请求的baseUrl
 
-
     }
+
+//    private void initAutoSize() {
+//        AutoSizeConfig.getInstance().getUnitsManager()
+//                .setSupportDP(false)
+//                .setSupportSP(false)
+//                .setSupportSubunits(Subunits.MM);
+//    }
 }
