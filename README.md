@@ -1,17 +1,25 @@
 # Helper---帮助搭建Android项目开发
 ### 项目介绍:
-> libs(网络框架,图片框架,项目基础框架...)
->> 网络框架:Retrofit+Rxjava.
+# RxHttp
 
->> 图片框架:Glide.
+对RxJava2+Retrofit2+OkHttp3的封装，实现接口请求和文件下载，文件上传
 
->> 基础框架:MVP
+# 功能简介
 
-> common(Ui控件,常用的工具类)
+- 网络请求（RxRequest.create()）
+  - 支持监听请求声明周期，如开始结束和网络错误
+  - 支持多BaseUrl，可针对不同请求重定向
+  - 支持针对不同请求设置不同缓存策略，如无网强制获取缓存，有网缓存有效10秒
+  - 支持添加公共请求参数
+  - 支持自定义异常处理和异常提示消息
+- 文件下载（RxRequest.downloadFile(this,url)）
+  - 支持断点续传
+  - 支持下载进度回调
+  - 支持下载速度回调
+  - 支持下载过程状态监听
+  - 支持在仅保存下载路径未保存进度时自动恢复断点续传
+  - 支持自动获取真实文件名
 
->> XLoadView(简单实用的页面状态统一管理 ，加载中、无网络、无数据、出错等状态的随意切换)
-
->> 更新页面等...
 
 
 ### 网络库使用介绍:
@@ -67,79 +75,221 @@
 ##### 2.1 创建apiService
 
 
-    public interface WanAndroid {
-      @GET("/wxarticle/chapters/json")
-       Flowable<PublicNumbersBean> getListofPublicNumbers();//get请求方式
-    }
+    Disposable request = RxRequest.create(FreeApi.api().getBannerList()).listener(new RxRequest.RequestListener() {
+            @Override
+            public void onStart() {
+            }
 
-      RxUtils.createApi(WanAndroid.class)//创建Apiservice对象
-                .FgetListofPublicNumbers()
-                .compose(BaseFlowableTransFormer.<PublicNumbersBean>switchSchedulers())//BaseFlowableTransFormer 自定义subscribe格式
-                .subscribeWith(new BaseDisposableSubscriber<PublicNumbersBean>() {
+            @Override
+            public void onError(BaseException handle) {
+            }
 
-                    @Override
-                    public void doOnError(String errorMsg) {
-                    }
+            @Override
+            public void onFinish() {
+            }
+        }).request(new RxRequest.ResultCallback<List<BannerBean>>() {
+            @Override
+            public void onSuccess(int code, List<BannerBean> data) {
+            }
 
-                    @Override
-                    public void doOnNext(PublicNumbersBean publicNumbersBean) {
-                    }
-
-                    @Override
-                    public void doOnCompleted() {
-
-                    }
-                });
-
+            @Override
+            public void onFailed(int code, String msg) {
+            }
+        });
+        
+        
+        
 
   ##### 2.2 下载文件资源
 
-        String url = "https://imtt.dd.qq.com/16891/apk/2E8BDD7686474A7BC4A51ADC3667CABF.apk";
-        final String fileName = "qq.apk";
-
-        RxUtils.downloadFile(url)
-                .subscribe(new DownloadObserver(fileName) {
+     
+        RxDownload mRxDownload = RxRequest.downloadFile(this,et_url.getText().toString());
+        mRxDownload.setDownloadListener(new RxDownload.DownloadListener() {
+        
+                    /***
+                     * DownloadListener   下载状态监听
+                     */
                     @Override
-                    protected void onError(String errorMsg) {
-
+                    public void onStarting(DownloadInfo info) {
                     }
 
                     @Override
-                    protected void onSuccess(long bytesRead, long contentLength, float progress, boolean done, String filePath) {
+                    public void onDownloading(DownloadInfo info) {
+                    }
 
+                    @Override
+                    public void onError(DownloadInfo info, Throwable e) {
+                    }
+
+                    @Override
+                    public void onStopped(DownloadInfo info) {
+                    }
+
+                    @Override
+                    public void onCanceled(DownloadInfo info) {
+                    }
+
+                    @Override
+                    public void onCompletion(DownloadInfo info) {
+                    }
+                })
+                .setProgressListener(new RxDownload.ProgressListener() {
+                   /**
+                     *  ProgressListener 下载进度监听
+                     */
+                    @Override
+                    public void onProgress(float progress, long downloadLength, long contentLength) {
+                    }
+
+                    @Override
+                    public void onAleraProgress(float progress, String downloadLength, String contentLength) {
+                    }
+                })
+                .setSpeedListener(new RxDownload.SpeedListener() {
+                   /**
+                     *  SpeedListener 网速监听
+                     */
+                    @Override
+                    public void onSpeedChange(float bytePerSecond, String speedFormat) {
                     }
                 });
+     mRxDownload.start();//开始下载
+     mRxDownload.stop(); //暂停下载
+     mRxDownload.cancel();//取消下载
 
-   ##### 2.3 上传单张文件
+ 
+ ### DownloadInfo
 
-                RxUtils.uploadImg("上传文件服务器地址","本地文件地址")
-                .compose(BaseObservableTransformer.<ResponseBody>switchSchedulers())
-                .subscribe(new CommonObserver<ResponseBody>() {
-                    @Override
-                    protected void onError(String errorMsg) {
+用于保存下载信息，如需断点续传，需要自己保存以下几个必传项
 
-                    }
+- #### String url
 
-                    @Override
-                    protected void onSuccess(ResponseBody responseBody) {
+  下载文件的链接**（必传项）**
 
-                    }
-                });
+- #### String saveDirPath
 
-   ##### 2.3 上传多张文件
+  自定义下载文件的保存目录**（断点续传时必传项）**
 
-                RxUtils.uploadImages("上传文件服务器地址",List<String> 文件)
-                .compose(BaseObservableTransformer.<ResponseBody>switchSchedulers())
-                .subscribe(new CommonObserver<ResponseBody>() {
-                    @Override
-                    protected void onError(String errorMsg) {
+- #### String saveFileName
 
-                    }
+  自定义下载文件的保存文件名，需带后缀名**（断点续传时必传项）**
 
-                    @Override
-                    protected void onSuccess(ResponseBody responseBody) {
+- #### long downloadLength
 
-                    }
-                });
+  已下载文件的长度**（断点续传时必传项）**
+
+- #### long contentLength
+
+  下载文件的总长度
+
+- #### State state
+
+  当前下载状态
+
+  - ##### STARTING
+
+    正在开始
+
+  - ##### DOWNLOADING
+
+    正在下载
+
+  - ##### STOPPED
+
+    未开始/已停止
+
+  - ##### ERROR
+
+    下载出错
+
+  - ##### COMPLETION
+
+    下载完成
+
+- #### Mode mode
+
+  获取保存路径的文件已存在但未保存下载进度时的模式
+
+  - ##### APPEND
+
+    追加
+
+  - ##### REPLACE
+
+    替换
+
+  - ##### RENAME
+
+    重命名
+
+- #### create(String)
+
+  创建一个下载对象，参数为url
+
+- #### create(String, String, String)
+
+  创建一个下载对象，参数为url/保存目录/文件名
+
+- #### create(String, String, String, long, long)
+
+  创建一个下载对象，参数为url/保存目录/文件名/已下载长度/总长度
+
+### RxDownload
+
+- #### create(DownloadInfo)
+
+  用于新建一个下载任务
+
+- #### setDownloadListener(DownloadListener)
+
+  设置下载状态监听
+
+  - ##### onStarting()
+
+    正在开始，正在连接服务器
+
+  - ##### onDownloading()
+
+    正在下载
+
+  - ##### onStopped()
+
+    已停止，不会删除已下载部分，支持断点续传
+
+  - ##### onCanceled()
+
+    已取消，会删除已下载的部分文件，再次开始会重新下载
+
+  - ##### onCompletion(DownloadInfo)
+
+    下载完成
+
+  - ##### onError(Throwable)
+
+    下载出错
+
+- #### setProgressListener(ProgressListener)
+
+  - ##### onProgress(float)
+
+    下载进度回调（0~1）
+
+- #### setSpeedListener(SpeedListener)
+
+  - ##### onSpeedChange(float, String)
+
+    下载速度回调，两个值分别为每秒下载比特数和格式化后速度（如：1.2KB/s，3.24MB/s）
+
+- #### start()
+
+  开始下载/继续下载
+
+- #### stop()
+
+  停止下载，不会删除已下载部分，支持断点续传
+
+- #### cancel()
+
+  取消下载，会删除已下载的部分文件，再次开始会重新下载
 
 
