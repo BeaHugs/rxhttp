@@ -160,79 +160,79 @@
  
  ### DownloadInfo
 
-用于保存下载信息，如需断点续传，需要自己保存以下几个必传项
+    用于保存下载信息，如需断点续传，需要自己保存以下几个必传项
 
-- #### String url
+    - #### String url
 
-  下载文件的链接**（必传项）**
+    下载文件的链接**（必传项）**
 
-- #### String saveDirPath
+    - #### String saveDirPath
 
-  自定义下载文件的保存目录**（断点续传时必传项）**
+    自定义下载文件的保存目录**（断点续传时必传项）**
 
-- #### String saveFileName
+    - #### String saveFileName
 
-  自定义下载文件的保存文件名，需带后缀名**（断点续传时必传项）**
+    自定义下载文件的保存文件名，需带后缀名**（断点续传时必传项）**
 
-- #### long downloadLength
+    - #### long downloadLength
 
-  已下载文件的长度**（断点续传时必传项）**
+    已下载文件的长度**（断点续传时必传项）**
 
-- #### long contentLength
+    - #### long contentLength
 
-  下载文件的总长度
+    下载文件的总长度
 
-- #### State state
+    - #### State state
 
-  当前下载状态
+    当前下载状态
 
-  - ##### STARTING
+    - ##### STARTING
 
     正在开始
 
-  - ##### DOWNLOADING
+    - ##### DOWNLOADING
 
     正在下载
 
-  - ##### STOPPED
+    - ##### STOPPED
 
     未开始/已停止
 
-  - ##### ERROR
+    - ##### ERROR
 
     下载出错
 
-  - ##### COMPLETION
+    - ##### COMPLETION
 
     下载完成
 
-- #### Mode mode
+    - #### Mode mode
 
-  获取保存路径的文件已存在但未保存下载进度时的模式
+    获取保存路径的文件已存在但未保存下载进度时的模式
 
-  - ##### APPEND
+    - ##### APPEND
 
     追加
 
-  - ##### REPLACE
+    - ##### REPLACE
 
     替换
 
-  - ##### RENAME
+    - ##### RENAME
 
     重命名
 
-- #### create(String)
+    - #### create(String)
 
-  创建一个下载对象，参数为url
+    创建一个下载对象，参数为url
 
-- #### create(String, String, String)
+    - #### create(String, String, String)
 
-  创建一个下载对象，参数为url/保存目录/文件名
+     创建一个下载对象，参数为url/保存目录/文件名
 
-- #### create(String, String, String, long, long)
+    - #### create(String, String, String, long, long)
 
-  创建一个下载对象，参数为url/保存目录/文件名/已下载长度/总长度
+    创建一个下载对象，参数为url/保存目录/文件名/已下载长度/总长度
 
 ### RxRequest.downloadFile(this,url);
 
@@ -258,56 +258,56 @@
   
   
 
-- #### setDownloadListener(DownloadListener)
+    - #### setDownloadListener(DownloadListener)
 
-  设置下载状态监听
+    设置下载状态监听
 
-  - ##### onStarting()
+    - ##### onStarting()
 
     正在开始，正在连接服务器
 
-  - ##### onDownloading()
+    - ##### onDownloading()
 
-    正在下载
+     正在下载
 
-  - ##### onStopped()
+    - ##### onStopped()
 
     已停止，不会删除已下载部分，支持断点续传
 
-  - ##### onCanceled()
+    - ##### onCanceled()
 
     已取消，会删除已下载的部分文件，再次开始会重新下载
 
-  - ##### onCompletion(DownloadInfo)
+    - ##### onCompletion(DownloadInfo)
 
     下载完成
 
-  - ##### onError(Throwable)
+    - ##### onError(Throwable)
 
     下载出错
 
-- #### setProgressListener(ProgressListener)
+    - #### setProgressListener(ProgressListener)
 
-  - ##### onProgress(float)
+    - ##### onProgress(float)
 
     下载进度回调（0~1）
 
-- #### setSpeedListener(SpeedListener)
+    - #### setSpeedListener(SpeedListener)
 
-  - ##### onSpeedChange(float, String)
+    - ##### onSpeedChange(float, String)
 
     下载速度回调，两个值分别为每秒下载比特数和格式化后速度（如：1.2KB/s，3.24MB/s）
 
-- #### start()
+    - #### start()
 
-  开始下载/继续下载
+    开始下载/继续下载
 
-- #### stop()
+    - #### stop()
 
-  停止下载，不会删除已下载部分，支持断点续传
+    停止下载，不会删除已下载部分，支持断点续传
 
-- #### cancel()
+    - #### cancel()
 
-  取消下载，会删除已下载的部分文件，再次开始会重新下载
+    取消下载，会删除已下载的部分文件，再次开始会重新下载
 
 
