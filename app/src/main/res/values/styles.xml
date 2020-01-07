@@ -8,27 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
-
-    <!-- 默认文本框样式 -->
-    <style name="EditTextStyle">
-        <item name="android:background">@drawable/circular_bead_edit</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColorHint">#A4A4A4</item>
-        <item name="android:textColor">#333333</item>
-        <item name="android:paddingTop">13dp</item>
-        <item name="android:paddingBottom">13dp</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-    </style>
-
-    <!-- 默认圆角按钮样式 -->
-    <style name="ButtonStyle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white90</item>
-        <item name="android:background">@drawable/circular_bead_button</item>
-        <item name="android:foreground">@null</item>
-        <item name="android:stateListAnimator">@null</item>
-    </style>
-
 </resources>

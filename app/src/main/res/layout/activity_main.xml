@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-
-    <org.beahugs.common.weiget.btmbar.RxNavigationBar
-        android:id="@+id/rx_nav_bar"
+    <TextView
+        android:id="@+id/tv_go_test_request"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:background="#ffff"
+        android:text="测试请求" />
 
+    <TextView
+        android:id="@+id/tv_go_test_download"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:background="#ffff"
+        android:text="测试下载" />
 
-</RelativeLayout>
+</LinearLayout>
