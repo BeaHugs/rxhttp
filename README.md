@@ -236,13 +236,14 @@
 
 ### RxRequest.downloadFile(this,url);
 
-- /**
-     * 下载文件
+      /**
+      * 下载文件
      * @param context
      * @param fileUrl
      * @return
      */
     public static RxDownload downloadFile(Context context,String fileUrl){
+
         RxDownload mRxDownload;
         DownloadInfo downloadInfo = DownloadInfo.getDownloadInfo(context);
         if (downloadInfo == null) {
@@ -253,8 +254,9 @@
         }
         return mRxDownload;
     }
-
-  用于新建一个下载任务
+    用于新建一个下载任务
+  
+  
 
 - #### setDownloadListener(DownloadListener)
 
