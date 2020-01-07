@@ -234,9 +234,25 @@
 
   创建一个下载对象，参数为url/保存目录/文件名/已下载长度/总长度
 
-### RxDownload
+### RxRequest.downloadFile(this,url);
 
-- #### create(DownloadInfo)
+- /**
+     * 下载文件
+     * @param context
+     * @param fileUrl
+     * @return
+     */
+    public static RxDownload downloadFile(Context context,String fileUrl){
+        RxDownload mRxDownload;
+        DownloadInfo downloadInfo = DownloadInfo.getDownloadInfo(context);
+        if (downloadInfo == null) {
+            mRxDownload = RxDownload.create(DownloadInfo.create(fileUrl));
+        } else {
+            mRxDownload = RxDownload.create(downloadInfo);
+            mRxDownload.setDownloadInfo(downloadInfo);
+        }
+        return mRxDownload;
+    }
 
   用于新建一个下载任务
 
