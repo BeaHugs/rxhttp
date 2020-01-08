@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.beahugs.helper.network.RxUtils;
 import org.beahugs.helper.network.download.DownloadInfo;
 import org.beahugs.helper.network.download.RxDownload;
 import org.beahugs.helper.network.download.utils.UnitFormatUtils;
 import org.beahugs.helper.request.RxRequest;
+
+import okhttp3.ResponseBody;
 
 public class TestDownloadActivity extends AppCompatActivity {
 
@@ -79,6 +82,8 @@ public class TestDownloadActivity extends AppCompatActivity {
 
         mRxDownload = RxRequest.downloadFile(this,et_url.getText().toString());
         mRxDownload.setDownloadListener(new RxDownload.DownloadListener() {
+
+
                     @Override
                     public void onStarting(DownloadInfo info) {
                         tv_start_stop.setText("暂停下载");
@@ -123,6 +128,9 @@ public class TestDownloadActivity extends AppCompatActivity {
                     }
                 })
                 .setProgressListener(new RxDownload.ProgressListener() {
+                    /**
+                     *  ProgressListener 下载进度监听
+                     */
                     @Override
                     public void onProgress(float progress, long downloadLength, long contentLength) {
                         pb_1.setProgress((int) (progress * 10000));

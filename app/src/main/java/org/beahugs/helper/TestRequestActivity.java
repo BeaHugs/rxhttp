@@ -52,7 +52,7 @@ public class TestRequestActivity extends AppCompatActivity {
 
     private void getBannerList() {
 
-        Disposable request = RxRequest.create(FreeApi.api().weather()).listener(new RxRequest.RequestListener() {
+        Disposable request = RxRequest.create(FreeApi.api().getBannerList()).listener(new RxRequest.RequestListener() {
             private long timeStart = 0;
 
             @Override

@@ -25,7 +25,7 @@ public class FreeApi {
          * 获取天气
          */
         @GET("/banner/json")
-        Observable<ResponsBean<List<BannerBean>>> weather();
+        Observable<ResponsBean<List<BannerBean>>> getBannerList();
 
     }
 }
