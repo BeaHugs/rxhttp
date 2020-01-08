@@ -1,4 +1,4 @@
-# rxhttpr---帮助搭建Android项目开发
+# rxhttp---帮助搭建Android项目开发
 ### 项目介绍:
 [图片选择器--我的另一个开源项目: https://github.com/BeaHugs/RxImagePicker](https://github.com/BeaHugs/RxImagePicker)
 
