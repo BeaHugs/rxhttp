@@ -5,16 +5,16 @@
 ### 项目导入:
 
     allprojects {
-    repositories {
-    ...
-    maven { url 'https://jitpack.io' }
-    }
+         repositories {
+         ...
+            maven { url 'https://jitpack.io' }
+        }
     }
     
     
      dependencies {
-         implementation 'com.github.BeaHugs:rxhttp:最新版本号'
- }
+          implementation 'com.github.BeaHugs:rxhttp:最新版本号'
+     }
 
     
 
