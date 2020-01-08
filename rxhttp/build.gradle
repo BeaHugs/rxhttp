@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.BeaHugs'  //注意com.github.后面的为github账号
 android {
     compileSdkVersion 28
     defaultConfig {
