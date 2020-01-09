@@ -2,6 +2,22 @@
 ### 项目介绍:
 [图片选择器--我的另一个开源项目: https://github.com/BeaHugs/RxImagePicker](https://github.com/BeaHugs/RxImagePicker)
 
+### 项目导入:
+
+    allprojects {
+         repositories {
+         ...
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    
+    
+     dependencies {
+          implementation 'com.github.BeaHugs:rxhttp:最新版本号'
+     }
+
+    
+
 # rxHttp
 
 对RxJava2+Retrofit2+OkHttp3的封装，实现接口请求和文件下载，文件上传
