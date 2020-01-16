@@ -14,6 +14,7 @@ import okhttp3.ResponseBody;
 import org.beahugs.helper.request.base.BaseApiCacheFactory;
 
 /**
+ * 上传文件
  * @Author: wangyibo
  * @Version: 1.0
  */

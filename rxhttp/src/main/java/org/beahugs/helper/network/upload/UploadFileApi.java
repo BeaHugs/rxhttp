@@ -14,7 +14,6 @@ import retrofit2.http.Url;
  * @Author: wangyibo
  * @Version: 1.0
  */
-
 public interface UploadFileApi {
 
 

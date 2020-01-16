@@ -11,7 +11,7 @@ import org.beahugs.helper.network.download.exception.RangeLengthIsZeroException;
 import org.beahugs.helper.network.download.exception.SaveFileBrokenPointException;
 
 /**
- * 描述:
+ * 描述:检测文件已经下载的长度
  * @Author: wangyibo
  * @Version: 1.0
  */
