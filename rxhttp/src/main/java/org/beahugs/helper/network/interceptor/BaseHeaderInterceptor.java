@@ -15,7 +15,7 @@ import okhttp3.Response;
 
 public abstract class BaseHeaderInterceptor implements Interceptor {
 
-    @Override
+     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Map<String, String> headers = buildHeaders();

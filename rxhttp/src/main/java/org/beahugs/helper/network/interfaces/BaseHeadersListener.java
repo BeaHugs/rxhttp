@@ -7,5 +7,5 @@ import java.util.Map;
  * @Version: 1.0
  */
 public interface BaseHeadersListener {
-    Map<String, String> buildHeaders();
+     Map<String, String> buildHeaders();
 }
